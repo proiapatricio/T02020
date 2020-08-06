@@ -16,10 +16,27 @@ namespace Plotter.Plotting
             world.Add(new TrailParticle(Position.X, Position.Y));
         }
 
+        //vieja funcion
+        //private float GetY(double x)
+        //{
+        //    if (x <= 1) return 1;
+        //    return 5 * (GetY(x - 1) + GetY(x - 2)) / GetY(x - 3);
+        //}
+
+        //Solucion
+        Dictionary<double, float> Yvalues = new Dictionary<double, float>();
+
         private float GetY(double x)
         {
             if (x <= 1) return 1;
-            return 5 * (GetY(x - 1) + GetY(x - 2)) / GetY(x - 3);
+            if(Yvalues.ContainsKey(x)) { return Yvalues[x]; }
+            else
+            {
+                float y = 5 * (GetY(x - 1) + GetY(x - 2)) / GetY(x - 3);
+                Yvalues.Add(x, y);
+            }
+
+            return Yvalues[x];
         }
     }
 }
